@@ -285,6 +285,21 @@ public class Logic {
     }
 
     /**
+     * Gets a feedback session from the recycle bin.
+     *
+     * <br/>Preconditions: <br/>
+     * * All parameters are non-null.
+     *
+     * @return null if not found.
+     */
+    public FeedbackSession getFeedbackSessionFromRecycleBin(String feedbackSessionName, String courseId) {
+        assert feedbackSessionName != null;
+        assert courseId != null;
+
+        return feedbackSessionsLogic.getFeedbackSessionFromRecycleBin(feedbackSessionName, courseId);
+    }
+
+    /**
      * Creates a feedback session.
      *
      * @return created feedback session
@@ -333,11 +348,20 @@ public class Logic {
      */
     public FeedbackSession publishFeedbackSession(String feedbackSessionName, String courseId)
             throws EntityDoesNotExistException, InvalidParametersException {
+                assert feedbackSessionName != null;
+                assert courseId != null;
 
-        assert feedbackSessionName != null;
-        assert courseId != null;
+            return feedbackSessionsLogic.publishFeedbackSession(feedbackSessionName, courseId);
+    }
 
-        return feedbackSessionsLogic.publishFeedbackSession(feedbackSessionName, courseId);
+    /**
+     * Deletes a feedback session cascade to its associated questions, responses, deadline extensions and comments.
+     *
+     * <br/>Preconditions: <br/>
+     * * All parameters are non-null.
+     */
+    public void deleteFeedbackSessionCascade(String feedbackSessionName, String courseId) {
+        feedbackSessionsLogic.deleteFeedbackSessionCascade(feedbackSessionName, courseId);
     }
 
     /**

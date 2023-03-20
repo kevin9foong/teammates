@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.datatransfer.questions.FeedbackQuestionType;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -39,7 +39,7 @@ public abstract class FeedbackResponse extends BaseEntity {
     @Convert(converter = FeedbackQuestionTypeConverter.class)
     private FeedbackQuestionType type;
 
-    @OneToMany(mappedBy = "feedbackResponse")
+    @OneToMany(mappedBy = "feedbackResponse", cascade = CascadeType.REMOVE)
     private List<FeedbackResponseComment> feedbackResponseComments = new ArrayList<>();
 
     @Column(nullable = false)

@@ -64,6 +64,27 @@ public final class FeedbackSessionsDb extends EntitiesDb {
     }
 
     /**
+     * Gets a soft-deleted feedback session.
+     *
+     * @return null if not found or not soft-deleted.
+     */
+    public FeedbackSession getSoftDeletedFeedbackSession(String feedbackSessionName, String courseId) {
+        assert feedbackSessionName != null;
+        assert courseId != null;
+
+        FeedbackSession feedbackSession = getFeedbackSession(feedbackSessionName, courseId);
+
+        if (feedbackSession != null && feedbackSession.getDeletedAt() == null) {
+            log.info(feedbackSessionName + "/" + courseId + " is not soft-deleted!");
+            return null;
+        }
+
+        return feedbackSession;
+    }
+
+
+
+    /**
      * Creates a feedback session.
      */
     public FeedbackSession createFeedbackSession(FeedbackSession session)

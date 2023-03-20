@@ -91,6 +91,15 @@ public final class FeedbackSessionsLogic {
     }
 
     /**
+     * Gets a feedback session from the recycle bin.
+     *
+     * @return null if not found.
+     */
+    public FeedbackSession getFeedbackSessionFromRecycleBin(String feedbackSessionName, String courseId) {
+        return fsDb.getSoftDeletedFeedbackSession(courseId, feedbackSessionName);
+    }
+
+    /**
      * Creates a feedback session.
      *
      * @return created feedback session
@@ -149,6 +158,14 @@ public final class FeedbackSessionsLogic {
         sessionToPublish.setResultsVisibleFromTime(Instant.now());
 
         return sessionToPublish;
+    }
+
+    /**
+     * Deletes a feedback session cascade to its associated questions, responses, deadline extensions and comments.
+     */
+    public void deleteFeedbackSessionCascade(String feedbackSessionName, String courseId) {
+        FeedbackSession feedbackSession = fsDb.getFeedbackSession(feedbackSessionName, courseId);
+        fsDb.deleteFeedbackSession(feedbackSession);
     }
 
     /**
