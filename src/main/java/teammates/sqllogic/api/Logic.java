@@ -348,8 +348,8 @@ public class Logic {
      */
     public FeedbackSession publishFeedbackSession(String feedbackSessionName, String courseId)
             throws EntityDoesNotExistException, InvalidParametersException {
-                assert feedbackSessionName != null;
-                assert courseId != null;
+            assert feedbackSessionName != null;
+            assert courseId != null;
 
             return feedbackSessionsLogic.publishFeedbackSession(feedbackSessionName, courseId);
     }
