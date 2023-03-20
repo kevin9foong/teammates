@@ -132,7 +132,7 @@ public final class FeedbackSessionsDb extends EntitiesDb {
         }
     }
 
-     /**
+    /**
      * Soft-deletes a specific feedback session by its name and course id.
      *
      * @return Soft-deletion time of the feedback session.

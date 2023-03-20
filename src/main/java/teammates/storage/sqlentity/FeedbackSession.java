@@ -15,11 +15,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
 import teammates.common.util.SanitizationHelper;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -317,7 +317,8 @@ public class FeedbackSession extends BaseEntity {
 
     @Override
     public String toString() {
-        return "FeedbackSession [id=" + id + ", course=" + course + ", name=" + name + ", creatorEmail=" + creatorEmail
+        return "FeedbackSession [id=" + id + ", course=" + course.getId() + ", name=" + name
+                + ", creatorEmail=" + creatorEmail
                 + ", instructions=" + instructions + ", startTime=" + startTime + ", endTime=" + endTime
                 + ", sessionVisibleFromTime=" + sessionVisibleFromTime + ", resultsVisibleFromTime="
                 + resultsVisibleFromTime + ", gracePeriod=" + gracePeriod + ", isOpeningEmailEnabled="

@@ -3,7 +3,6 @@ package teammates.sqlui.webapi;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -18,6 +17,9 @@ import teammates.ui.output.MessageOutput;
 import teammates.ui.webapi.DeleteFeedbackSessionAction;
 import teammates.ui.webapi.JsonResult;
 
+/**
+ * SUT: {@link DeleteFeedbackSessionAction}.
+ */
 public class DeleteFeedbackSessionActionTest extends BaseActionTest<DeleteFeedbackSessionAction> {
 
     private FeedbackSession feedbackSession;

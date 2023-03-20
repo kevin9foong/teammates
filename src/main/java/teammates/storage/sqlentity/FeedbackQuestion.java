@@ -20,6 +20,7 @@ import teammates.storage.sqlentity.questions.FeedbackRankOptionsQuestion;
 import teammates.storage.sqlentity.questions.FeedbackRankRecipientsQuestion;
 import teammates.storage.sqlentity.questions.FeedbackRubricQuestion;
 import teammates.storage.sqlentity.questions.FeedbackTextQuestion;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
