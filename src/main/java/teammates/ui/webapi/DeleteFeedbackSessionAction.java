@@ -7,7 +7,7 @@ import teammates.storage.sqlentity.FeedbackSession;
 /**
  * Delete a feedback session.
  */
-class DeleteFeedbackSessionAction extends Action {
+public class DeleteFeedbackSessionAction extends Action {
 
     @Override
     AuthType getMinAuthLevel() {

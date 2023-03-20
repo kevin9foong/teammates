@@ -169,6 +169,16 @@ public final class FeedbackSessionsLogic {
     }
 
     /**
+     * Soft-deletes a specific feedback session to Recycle Bin.
+     * @return the time when the feedback session is moved to the recycle bin
+     */
+    public Instant moveFeedbackSessionToRecycleBin(String feedbackSessionName, String courseId)
+            throws EntityDoesNotExistException {
+
+        return fsDb.softDeleteFeedbackSession(feedbackSessionName, courseId);
+    }
+
+    /**
      * Returns true if there are any questions for the specified user type (students/instructors) to answer.
      */
     public boolean isFeedbackSessionForUserTypeToAnswer(FeedbackSession session, boolean isInstructor) {

@@ -9,15 +9,17 @@ import teammates.common.exception.EntityDoesNotExistException;
 import teammates.common.exception.InvalidParametersException;
 import teammates.common.util.HibernateUtil;
 import teammates.it.test.BaseTestCaseWithSqlDatabaseAccess;
+// import teammates.sqllogic.core.FeedbackQuestionsLogic;
 import teammates.sqllogic.core.FeedbackSessionsLogic;
 import teammates.storage.sqlentity.FeedbackSession;
 
 /**
- * SUT: {@link FeedbackSessionsLogic}.
+ * SUT: {@link FeedbackSessionsLogic}
  */
 public class FeedbackSessionsLogicIT extends BaseTestCaseWithSqlDatabaseAccess {
 
     private FeedbackSessionsLogic fsLogic = FeedbackSessionsLogic.inst();
+    // private FeedbackQuestionsLogic fqLogic = FeedbackQuestionsLogic.inst();
 
     private SqlDataBundle typicalDataBundle;
 
@@ -74,4 +76,36 @@ public class FeedbackSessionsLogicIT extends BaseTestCaseWithSqlDatabaseAccess {
                 publishedFs.getName(), "random-course-id"));
     }
 
+    public void testDeleteFeedbackSessionCascade_deleteSessionNotInRecycleBin_shouldDoCascadeDeletion() {
+        FeedbackSession fs = typicalDataBundle.feedbackSessions.get("session1InCourse1");
+
+        FeedbackSession retrievedFs = fsLogic.getFeedbackSession(fs.getName(), fs.getCourse().getId());
+
+        // For using debugger
+        // List<FeedbackQuestion> localVar = retrievedFs.getFeedbackQuestions();
+        assertNotNull(retrievedFs);
+        assertNull(fsLogic.getFeedbackSessionFromRecycleBin(fs.getName(), fs.getCourse().getId()));
+
+        // but this does not return empty list
+        // assertFalse(fqLogic.getFeedbackQuestionsForSession(retrievedFs).isEmpty());
+
+        // Why does this return empty list - it seems that it doesnt fetch the joins
+        assertFalse(retrievedFs.getFeedbackQuestions().isEmpty());
+        // assertTrue(retrievedFs.getFeedbackQuestions().stream().anyMatch(fbq -> !fbq.getFeedbackResponses().isEmpty()));
+        // assertTrue(retrievedFs.getFeedbackQuestions().stream().anyMatch(
+        //         fbq -> fbq.getFeedbackResponses().stream().anyMatch(fbr -> !fbr.getFeedbackResponseComments().isEmpty())));
+        // assertFalse(retrievedFs.getDeadlineExtensions().isEmpty());
+
+        // // delete existing feedback session directly
+        // fsLogic.deleteFeedbackSessionCascade(fs.getName(), fs.getCourse().getId());
+
+        // // check deletion is cascaded
+        // assertNull(fsLogic.getFeedbackSession(fs.getName(), fs.getCourse().getId()));
+        // assertNull(fsLogic.getFeedbackSessionFromRecycleBin(fs.getName(), fs.getCourse().getId()));
+        // assertTrue(retrievedFs.getFeedbackQuestions().isEmpty());
+        // assertFalse(retrievedFs.getFeedbackQuestions().stream().anyMatch(fbq -> !fbq.getFeedbackResponses().isEmpty()));
+        // assertFalse(retrievedFs.getFeedbackQuestions().stream().anyMatch(
+        //         fbq -> fbq.getFeedbackResponses().stream().anyMatch(fbr -> !fbr.getFeedbackResponseComments().isEmpty())));
+        // assertTrue(retrievedFs.getDeadlineExtensions().isEmpty());
+    }
 }

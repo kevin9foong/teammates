@@ -82,8 +82,6 @@ public final class FeedbackSessionsDb extends EntitiesDb {
         return feedbackSession;
     }
 
-
-
     /**
      * Creates a feedback session.
      */
@@ -132,6 +130,28 @@ public final class FeedbackSessionsDb extends EntitiesDb {
         if (feedbackSession != null) {
             delete(feedbackSession);
         }
+    }
+
+     /**
+     * Soft-deletes a specific feedback session by its name and course id.
+     *
+     * @return Soft-deletion time of the feedback session.
+     */
+    public Instant softDeleteFeedbackSession(String feedbackSessionName, String courseId)
+            throws EntityDoesNotExistException {
+        assert courseId != null;
+        assert feedbackSessionName != null;
+
+        FeedbackSession feedbackSessionEntity = getFeedbackSession(feedbackSessionName, courseId);
+
+        if (feedbackSessionEntity == null) {
+            throw new EntityDoesNotExistException(ERROR_UPDATE_NON_EXISTENT);
+        }
+
+        feedbackSessionEntity.setDeletedAt(Instant.now());
+        merge(feedbackSessionEntity);
+
+        return feedbackSessionEntity.getDeletedAt();
     }
 
     /**

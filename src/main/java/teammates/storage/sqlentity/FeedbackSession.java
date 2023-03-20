@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.Const;
@@ -17,6 +19,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -75,9 +78,11 @@ public class FeedbackSession extends BaseEntity {
     private boolean isPublishedEmailSent;
 
     @OneToMany(mappedBy = "feedbackSession", cascade = CascadeType.REMOVE)
+    @Fetch(FetchMode.JOIN)
     private List<DeadlineExtension> deadlineExtensions = new ArrayList<>();
 
     @OneToMany(mappedBy = "feedbackSession", cascade = CascadeType.REMOVE)
+    @Fetch(FetchMode.JOIN)
     private List<FeedbackQuestion> feedbackQuestions = new ArrayList<>();
 
     @UpdateTimestamp

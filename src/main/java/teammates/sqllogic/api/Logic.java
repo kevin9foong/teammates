@@ -365,6 +365,18 @@ public class Logic {
     }
 
     /**
+     * Soft-deletes a specific  session to Recycle Bin.
+     */
+    public void moveFeedbackSessionToRecycleBin(String feedbackSessionName, String courseId)
+            throws EntityDoesNotExistException {
+
+        assert feedbackSessionName != null;
+        assert courseId != null;
+
+        feedbackSessionsLogic.moveFeedbackSessionToRecycleBin(feedbackSessionName, courseId);
+    }
+
+    /**
      * Get usage statistics within a time range.
      */
     public List<UsageStatistics> getUsageStatisticsForTimeRange(Instant startTime, Instant endTime) {
