@@ -77,6 +77,7 @@ public class FeedbackSessionsLogicIT extends BaseTestCaseWithSqlDatabaseAccess {
                 publishedFs.getName(), "random-course-id"));
     }
 
+    @Test
     public void testDeleteFeedbackSessionCascade_deleteSessionNotInRecycleBin_shouldDoCascadeDeletion() {
         FeedbackSession fs = typicalDataBundle.feedbackSessions.get("session1InCourse1");
 
